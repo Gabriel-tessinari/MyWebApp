@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'user', loadChildren: 'app/user/user.module#UserModule'}
+  {path: '', redirectTo: 'user/login', pathMatch: 'full'}
 ];
 
-const config: ExtraOptions = {
-    useHash: true,
-    relativeLinkResolution: 'legacy'
-};
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes, config)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
