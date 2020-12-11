@@ -1,0 +1,17 @@
+@import '../../../assets/scss/variables';
+
+.card {
+    background-color: white;
+    min-width: 300px;
+    max-width: 450px;
+    min-height: 250px;
+    margin: auto;
+}
+
+.card-header {
+    background: map-get($colors, default) !important;
+    width: 100%;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+}
