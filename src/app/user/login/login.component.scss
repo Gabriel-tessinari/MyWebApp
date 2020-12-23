@@ -1,7 +1,7 @@
 @import '../../../assets/scss/variables';
 
 .card {
-    background-color: white;
+    background: white;
     min-width: 300px;
     max-width: 450px;
     min-height: 250px;
@@ -14,4 +14,21 @@
     height: 50px;
     color: white;
     font-size: 20px;
+}
+
+.card-body {
+    .btn {
+        background: map-get($colors, default) !important;
+        color: white;
+        width: 100%;
+    }
+}
+
+.card-footer {
+    background: white;
+    text-align: right;
+
+    .link {
+        color: map-get($colors, default) !important;
+    }
 }

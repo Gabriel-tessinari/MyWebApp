@@ -45,6 +45,8 @@ class UserForm {
   }
 
   formValidation(): boolean {
-    return (this.email != "" && this.email != null && this.password != "" && this.password != null);
+    return (
+      this.email != "" && this.email != null && this.email.length >= 5 &&
+      this.password != "" && this.password != null && this.password.length >= 6);
   }
 }
