@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 
 import { PToastModule } from '../shared/components/p-toast/p-toast.module';
 import { LoginComponent } from './login/login.component';
+import { UserService } from '../shared/services';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -29,6 +30,7 @@ import { LoginComponent } from './login/login.component';
     ToastModule,
     PToastModule
   ],
+  providers: [UserService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UserModule { }

@@ -1,1 +1,1 @@
-export * from './user/user.json';
+export * from './user';

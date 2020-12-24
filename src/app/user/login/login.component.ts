@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PToastComponent } from '../../shared/components/p-toast/p-toast.component';
-import { UserJson } from '../../shared/json';
+import { UserService } from '../../shared/services';
+import { LoginResponseJson } from '../../shared/json';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,12 @@ import { UserJson } from '../../shared/json';
 export class LoginComponent implements OnInit {
 
   userForm: UserForm = new UserForm();
-  user = {} as UserJson;
+  loginResponse: LoginResponseJson;
   
   constructor(
-    private pToastComponent: PToastComponent
+    private router: Router,
+    private pToastComponent: PToastComponent,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void { 
@@ -26,8 +29,23 @@ export class LoginComponent implements OnInit {
       this.pToastComponent.showErrorCustomMessage('Erro', 'Dados inválidos.');
       return;
     }
-    this.pToastComponent
-    .showSuccessCustomMessage('Sucesso', JSON.stringify(this.userForm.email), 10000);
+
+    const emailAndPass = this.userForm.email + ':' + this.userForm.password;
+    this.userForm.password = null;
+    const encodedAuth = btoa(emailAndPass);
+    UserService.AUTH = 'Basic ' + encodedAuth;
+
+    this.userService.login().
+    subscribe(
+      response => {
+        this.loginResponse = response;
+        this.pToastComponent.showSuccessCustomMessage('Sucesso', 'Usuário: ' + this.loginResponse.user.name, 10000);
+      },
+      error => {
+        console.error(error);
+        this.pToastComponent.showWarningCustomMessage('Ops!', error.error.message);
+      }
+    );
   }
 }
 
@@ -47,6 +65,6 @@ class UserForm {
   formValidation(): boolean {
     return (
       this.email != "" && this.email != null && this.email.length >= 5 &&
-      this.password != "" && this.password != null && this.password.length >= 6);
+      this.password != "" && this.password != null && this.password.length >= 5);
   }
 }
