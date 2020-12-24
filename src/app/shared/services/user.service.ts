@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LoginResponseJson } from '../../shared/json';
+import { UserJson, LoginResponseJson } from '../../shared/json';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,15 @@ export class UserService {
     return this.http.get<LoginResponseJson>(
       url,
       {headers: header}
+    );
+  }
+
+  register(user: UserJson): Observable<void> {
+    const url = this.baseUrl;
+
+    return this.http.post<any>(
+      url,
+      user
     );
   }
 }

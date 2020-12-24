@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PToastComponent } from '../../shared/components';
 import { UserService } from '../../shared/services';
+import { UserJson } from '../../shared/json';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ import { UserService } from '../../shared/services';
 export class RegisterComponent implements OnInit {
 
   userForm: UserForm = new UserForm();
+  user: UserJson = new UserJson();
 
   constructor(
     private router: Router,
@@ -23,17 +25,25 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if(!this.userForm.formValidation()) {
-      this.pToastComponent.showErrorCustomMessage('Erro', 'Dados inválidos.');
-      return;
-    }
-
     if(!this.userForm.passwordConfirmation()) {
       this.pToastComponent.showWarningCustomMessage('Ops!', 'Deve-se digitar a mesma senha no campo Confirmar Senha.');
       return;
     }
 
-    this.router.navigate(['/user/login']);
+    this.user.name = this.userForm.name;
+    this.user.email = this.userForm.email;
+    this.user.password = this.userForm.password;
+
+    this.userService.register(this.user).
+    subscribe(
+      () => {
+        this.router.navigate(['/user/login']);
+      },
+      error => {
+        console.error(error);
+        this.pToastComponent.showApiError(error);
+      }
+    );
   }
 }
 
