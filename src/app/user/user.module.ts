@@ -14,9 +14,13 @@ import { ToastModule } from 'primeng/toast';
 import { PToastModule } from '../shared/components/p-toast/p-toast.module';
 import { LoginComponent } from './login/login.component';
 import { UserService } from '../shared/services';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [
+    LoginComponent, 
+    RegisterComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

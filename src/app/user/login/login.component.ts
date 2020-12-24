@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PToastComponent } from '../../shared/components/p-toast/p-toast.component';
+import { PToastComponent } from '../../shared/components';
 import { UserService } from '../../shared/services';
 import { LoginResponseJson } from '../../shared/json';
 
@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
     subscribe(
       response => {
         this.loginResponse = response;
-        this.pToastComponent.showSuccessCustomMessage('Sucesso', 'Usuário: ' + this.loginResponse.user.name, 10000);
+        this.router.navigate(['/home']);
       },
       error => {
         console.error(error);
-        this.pToastComponent.showWarningCustomMessage('Ops!', error.error.message);
+        this.pToastComponent.showApiError(error);
       }
     );
   }

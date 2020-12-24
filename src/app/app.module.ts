@@ -7,6 +7,7 @@ import { FormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule, UserRoutingModule } from './user';
+import { HomeModule, HomeRoutingModule } from './home';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,8 @@ import { UserModule, UserRoutingModule } from './user';
     FormsModule,
     UserModule,
     UserRoutingModule,
+    HomeModule,
+    HomeRoutingModule,
 
     AppRoutingModule
   ],

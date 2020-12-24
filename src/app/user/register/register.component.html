@@ -1,0 +1,32 @@
+<div class="card screen-centered">
+  <div class="card-header">
+    REGISTRE-SE
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="email">Nome</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="userForm.name" autocomplete="off"
+      pTooltip="Digite o nome de usuário. (Mínimo de 3 caracteres)" tooltipPosition="right" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" [(ngModel)]="userForm.email" autocomplete="off"
+      pTooltip="Digite seu email." tooltipPosition="right" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="userForm.password"
+      pTooltip="Digite sua senha. (Mínimo de 5 caracteres)" tooltipPosition="right" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+    </div>
+    <div class="form-group">
+      <label for="password">Confirmar Senha</label>
+      <input type="password" class="form-control" name="passConfirmation" [(ngModel)]="userForm.passConfirmation"
+      pTooltip="Digite novamente sua senha." tooltipPosition="right" tooltipEvent="focus" showDelay="1000" hideDelay="500">
+    </div>
+    <div>
+      <button type="submit" (click)="register()" class="btn" [disabled]="!userForm.formValidation()">Entrar</button>
+    </div>
+  </div>
+</div>
+  
+<p-toast-component></p-toast-component>
