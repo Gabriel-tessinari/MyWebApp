@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PToastComponent } from '../../shared/components/p-toast/p-toast.component';
+import { PToastComponent } from '../../shared/components';
 import { UserService } from '../../shared/services';
 import { LoginResponseJson } from '../../shared/json';
 
