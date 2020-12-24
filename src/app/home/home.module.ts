@@ -18,6 +18,7 @@ import { HomeMenuComponent } from './menu/home-menu.component';
     HttpClientModule,
     FlexLayoutModule
   ],
+  providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }
