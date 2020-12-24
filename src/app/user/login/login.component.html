@@ -1,0 +1,24 @@
+<div class="card screen-centered">
+  <div class="card-header">
+    LOGIN
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" [(ngModel)]="userForm.email" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="userForm.password">
+    </div>
+    <div>
+      <button type="submit" (click)="login()" class="btn" [disabled]="!userForm.formValidation()">Entrar</button>
+    </div>
+  </div>
+  <div class="card-footer">
+    Não tem conta?
+    <a href="/user/register" class="link">Registre-se</a>
+  </div>
+</div>
+
+<p-toast-component></p-toast-component>

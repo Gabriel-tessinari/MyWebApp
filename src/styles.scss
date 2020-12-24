@@ -1,0 +1,16 @@
+@import './assets/scss/variables';
+
+body {
+    background: map-get($colors, _lggray) !important;
+}
+
+* {
+    font-size: 14px;
+}
+
+.screen-centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
