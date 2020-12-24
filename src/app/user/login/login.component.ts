@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     subscribe(
       response => {
         this.loginResponse = response;
-        this.pToastComponent.showSuccessCustomMessage('Sucesso', 'Usuário: ' + this.loginResponse.user.name, 10000);
+        this.router.navigate(['/home']);
       },
       error => {
         console.error(error);
