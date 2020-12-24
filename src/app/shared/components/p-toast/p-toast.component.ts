@@ -58,7 +58,7 @@ export class PToastComponent {
   showApiError(error: any) {
     console.error(error);
     if(error.status === 422) {
-      error.error.forEach(e => this.showWarningCustomMessage('Atenção!', e.message));
+      this.showWarningCustomMessage('Atenção!', error.error.message);
     } else {
       this.showErrorDefaultMessage();
     }

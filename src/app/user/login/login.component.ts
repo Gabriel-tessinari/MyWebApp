@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         console.error(error);
-        this.pToastComponent.showWarningCustomMessage('Ops!', error.error.message);
+        this.pToastComponent.showApiError(error);
       }
     );
   }
