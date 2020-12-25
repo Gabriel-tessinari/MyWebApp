@@ -6,7 +6,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { ToolbarModule } from 'primeng/toolbar';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+
+import { PToastModule } from '../shared/components/p-toast/p-toast.module';
 import { HomeMenuComponent } from './menu/home-menu.component';
+import { UserService } from '../shared/services';
 
 @NgModule({
   declarations: [HomeMenuComponent],
@@ -16,9 +23,14 @@ import { HomeMenuComponent } from './menu/home-menu.component';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ToolbarModule,
+    SplitButtonModule,
+    ButtonModule,
+    ToastModule,
+    PToastModule
   ],
-  providers: [],
+  providers: [UserService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule { }

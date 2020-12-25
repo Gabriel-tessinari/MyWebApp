@@ -23,7 +23,7 @@ export class UserService {
 
     return this.http.get<LoginResponseJson>(
       url,
-      {headers: header}
+      { headers: header }
     );
   }
 
@@ -34,5 +34,17 @@ export class UserService {
       url,
       user
     );
+  }
+
+  delete(id: number, token: string): Observable<void> {
+    const url = this.baseUrl + '/' + id;
+
+    const header: any = new Object();
+    header.Authorization = token;
+
+    return this.http.delete<any>(
+      url,
+      { headers: header }
+    )
   }
 }

@@ -1,1 +1,13 @@
-<p>home-menu works!</p>
+<div>
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <h1>HOME</h1>
+        </div>      
+        <div class="p-toolbar-group-right">
+            <p-splitButton styleClass="p-button-info" label="{{user.name}}" icon="pi pi-user"
+            [model]="items"></p-splitButton>
+        </div>
+    </p-toolbar>
+</div>
+
+<p-toast-component></p-toast-component>
