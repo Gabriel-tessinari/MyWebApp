@@ -23,7 +23,7 @@ export class HomeMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      {label: 'Atualizar Conta', icon: 'pi pi-refresh', command: () => {
+      {label: 'Alterar Dados', icon: 'pi pi-refresh', command: () => {
         this.updateUser();
       }},
       {label: 'Deletar Conta', icon: 'pi pi-times', command: () => {
