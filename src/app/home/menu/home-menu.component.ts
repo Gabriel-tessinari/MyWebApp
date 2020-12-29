@@ -15,8 +15,9 @@ declare var $: any;
 export class HomeMenuComponent implements OnInit {
 
   items: MenuItem[];
+  userForm: UserForm = new UserForm();
   user: UserJson = new UserJson();
-  showModal: boolean = false;
+  token: string = localStorage.getItem('token');
 
   constructor(
     private router: Router,
@@ -39,17 +40,41 @@ export class HomeMenuComponent implements OnInit {
       }}
     ];
 
+    this.userForm.clean();
+    this.initUser();
+  }
+
+  initUser() {
     this.user.id = parseInt(localStorage.getItem('userId'));
     this.user.name = localStorage.getItem('userName');
     this.user.email = localStorage.getItem('userEmail');
   }
 
-  updateUser() {
-    this.pToastComponent.showSuccessCustomMessage('Update', JSON.stringify(this.user), 5000);
+  updateName() {
+    this.user.name = this.userForm.name;
+    this.pToastComponent.showSuccessCustomMessage('Update', 'Meu nome agora é ' + this.user.name, 5000);
+    this.userForm.clean();
+  }
+
+  updateEmail() {
+    this.user.email = this.userForm.email;
+    this.pToastComponent.showSuccessCustomMessage('Update', 'Meu email agora é ' + this.user.email, 5000);
+    this.userForm.clean();
+  }
+
+  updatePassword() {
+    if(!this.userForm.passwordConfirmation()) {
+      this.pToastComponent.showWarningCustomMessage('Ops!', 'Deve-se digitar a mesma nova senha no campo Confirmar Senha.');
+      return;
+    }
+
+    this.user.password = this.userForm.newPassword;
+    this.pToastComponent.showSuccessCustomMessage('Update', 'Minha senha agora é ' + this.user.password, 5000);
+    this.userForm.clean();
   }
 
   openModal(): void {
-    $("#myModal").modal({
+    $("#updateModal").modal({
       show: true,
       keyboard: false,
       backdrop: 'static'
@@ -72,9 +97,7 @@ export class HomeMenuComponent implements OnInit {
   }
 
   deleteUser() {
-    const token = localStorage.getItem('token');
-
-    this.userService.delete(this.user.id, token).
+    this.userService.delete(this.user.id, this.token).
     subscribe(
       () => {
         this.cleanStorage();
@@ -97,5 +120,49 @@ export class HomeMenuComponent implements OnInit {
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('token');
+  }
+}
+
+class UserForm {
+  name: string;
+  email: string;
+  emailPassword: string;
+  oldPassword: string;
+  newPassword: string;
+  passConfirmation: string;
+
+  constructor() {
+    this.clean();
+  }
+
+  clean() {
+    this.name = "";
+    this.email = "";
+    this.emailPassword = "";
+    this.oldPassword = "";
+    this.newPassword = "";
+    this.passConfirmation = "";
+  }
+
+  nameUpdateValidation(): boolean {
+    return (this.name != "" && this.name != null && this.name.length >= 3);
+  }
+
+  emailUpdateValidation(): boolean {
+    return (
+      this.email != "" && this.email != null && this.email.length >= 5 &&
+      this.emailPassword != "" && this.emailPassword != null && this.emailPassword.length >= 5
+    );
+  }
+
+  passwordUpdateValidation(): boolean {
+    return (
+      this.oldPassword != "" && this.oldPassword != null && this.oldPassword.length >= 5 &&
+      this.newPassword != "" && this.newPassword != null && this.newPassword.length >= 5
+    );
+  }
+
+  passwordConfirmation(): boolean {
+    return (this.newPassword == this.passConfirmation);
   }
 }
