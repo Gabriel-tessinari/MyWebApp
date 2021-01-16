@@ -52,14 +52,37 @@ export class HomeMenuComponent implements OnInit {
 
   updateName() {
     this.user.name = this.userForm.name;
-    this.pToastComponent.showSuccessCustomMessage('Update', 'Meu nome agora é ' + this.user.name, 5000);
-    this.userForm.clean();
+
+    this.userService.update(this.user, this.token).
+    subscribe(
+      () => {
+        this.pToastComponent.showSuccessDefaultMessage();
+        this.updateStorage();
+        this.userForm.clean();
+      },
+      error => {
+        console.error(error);
+        this.pToastComponent.showApiError(error);
+      }
+    );
   }
 
   updateEmail() {
     this.user.email = this.userForm.email;
-    this.pToastComponent.showSuccessCustomMessage('Update', 'Meu email agora é ' + this.user.email, 5000);
-    this.userForm.clean();
+    this.user.password = this.userForm.emailPassword;
+    
+    this.userService.update(this.user, this.token).
+    subscribe(
+      () => {
+        this.pToastComponent.showSuccessDefaultMessage();
+        this.updateStorage();
+        this.userForm.clean();
+      },
+      error => {
+        console.error(error);
+        this.pToastComponent.showApiError(error);
+      }
+    );
   }
 
   updatePassword() {
@@ -76,8 +99,7 @@ export class HomeMenuComponent implements OnInit {
   openModal(): void {
     $("#updateModal").modal({
       show: true,
-      keyboard: false,
-      backdrop: 'static'
+      keyboard: false
     });
   }
 
@@ -120,6 +142,11 @@ export class HomeMenuComponent implements OnInit {
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('token');
+  }
+
+  updateStorage() {
+    localStorage.setItem('userName', this.user.name);
+    localStorage.setItem('userEmail', this.user.email);
   }
 }
 

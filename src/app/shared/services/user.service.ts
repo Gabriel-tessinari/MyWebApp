@@ -47,4 +47,17 @@ export class UserService {
       { headers: header }
     )
   }
+
+  update(user: UserJson, token: string): Observable<void> {
+    const url = this.baseUrl;
+
+    const header: any = new Object();
+    header.Authorization = token;
+
+    return this.http.put<any>(
+      url,
+      user,
+      { headers: header }
+    );
+  }
 }
