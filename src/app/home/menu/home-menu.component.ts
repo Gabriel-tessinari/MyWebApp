@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { PToastComponent } from '../../shared/components';
 import { UserService } from '../../shared/services';
-import { UserJson } from '../../shared/json';
+import { UserJson, ChangePasswordRequestJson } from '../../shared/json';
 
 declare var $: any;
 
@@ -17,6 +17,7 @@ export class HomeMenuComponent implements OnInit {
   items: MenuItem[];
   userForm: UserForm = new UserForm();
   user: UserJson = new UserJson();
+  changePasswordRequest: ChangePasswordRequestJson = new ChangePasswordRequestJson();
   token: string = localStorage.getItem('token');
 
   constructor(
@@ -51,6 +52,7 @@ export class HomeMenuComponent implements OnInit {
   }
 
   updateName() {
+    this.initUser();
     this.user.name = this.userForm.name;
 
     this.userService.update(this.user, this.token).
@@ -68,6 +70,7 @@ export class HomeMenuComponent implements OnInit {
   }
 
   updateEmail() {
+    this.initUser();
     this.user.email = this.userForm.email;
     this.user.password = this.userForm.emailPassword;
     
@@ -91,9 +94,22 @@ export class HomeMenuComponent implements OnInit {
       return;
     }
 
-    this.user.password = this.userForm.newPassword;
-    this.pToastComponent.showSuccessCustomMessage('Update', 'Minha senha agora é ' + this.user.password, 5000);
-    this.userForm.clean();
+    this.initUser();
+    this.user.password = this.userForm.oldPassword;
+    this.changePasswordRequest.user = this.user;
+    this.changePasswordRequest.newPassword = this.userForm.newPassword;
+
+    this.userService.changePassword(this.changePasswordRequest, this.token).
+    subscribe(
+      () => {
+        this.pToastComponent.showSuccessDefaultMessage();
+        this.userForm.clean();
+      },
+      error => {
+        console.error(error);
+        this.pToastComponent.showApiError(error);
+      }
+    );
   }
 
   openModal(): void {
