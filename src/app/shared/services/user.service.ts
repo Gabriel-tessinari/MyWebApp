@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { UserJson, LoginResponseJson } from '../../shared/json';
+import { 
+  UserJson, 
+  LoginResponseJson,
+  ChangePasswordRequestJson } from '../../shared/json';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,7 @@ export class UserService {
 
     return this.http.get<LoginResponseJson>(
       url,
-      {headers: header}
+      { headers: header }
     );
   }
 
@@ -33,6 +36,44 @@ export class UserService {
     return this.http.post<any>(
       url,
       user
+    );
+  }
+
+  delete(id: number, token: string): Observable<void> {
+    const url = this.baseUrl + '/' + id;
+
+    const header: any = new Object();
+    header.Authorization = token;
+
+    return this.http.delete<any>(
+      url,
+      { headers: header }
+    )
+  }
+
+  update(user: UserJson, token: string): Observable<void> {
+    const url = this.baseUrl;
+
+    const header: any = new Object();
+    header.Authorization = token;
+
+    return this.http.put<any>(
+      url,
+      user,
+      { headers: header }
+    );
+  }
+
+  changePassword(changePasswordRequest: ChangePasswordRequestJson, token: string): Observable<void> {
+    const url = this.baseUrl + '/password';
+
+    const header: any = new Object();
+    header.Authorization = token;
+
+    return this.http.put<any>(
+      url,
+      changePasswordRequest,
+      { headers: header }
     );
   }
 }

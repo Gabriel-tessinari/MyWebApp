@@ -1,0 +1,10 @@
+@import '../../../assets/scss/variables';
+
+p-toolbar {
+    color: black;
+}
+
+.modal-header {
+    background-color: map-get($colors, _lggray) !important;
+}
+
