@@ -1,4 +1,5 @@
 @import './assets/scss/variables';
+@import './assets/scss/fonts';
 
 body {
     background: map-get($colors, _lggray) !important;
@@ -6,6 +7,7 @@ body {
 
 * {
     font-size: 14px;
+    font-family: 'Gotham Rounded Light';
 }
 
 .screen-centered {
@@ -13,4 +15,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.title-font {
+    font-family: 'Gotham Rounded Medium';
 }
