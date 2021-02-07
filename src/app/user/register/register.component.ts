@@ -24,6 +24,12 @@ export class RegisterComponent implements OnInit {
     this.userForm.clean();
   }
 
+  pressEnter() {
+    if(this.userForm.formValidation()) {
+      this.register();
+    }
+  }
+
   register() {
     if(!this.userForm.passwordConfirmation()) {
       this.pToastComponent.showWarningCustomMessage('Ops!', 'Deve-se digitar a mesma senha no campo Confirmar Senha.');

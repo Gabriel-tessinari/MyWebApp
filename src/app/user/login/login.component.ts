@@ -24,6 +24,12 @@ export class LoginComponent implements OnInit {
     this.userForm.clean();
   }
 
+  pressEnter() {
+    if(this.userForm.formValidation()) {
+      this.login();
+    }
+  }
+
   login() {
     if(!this.userForm.formValidation()) {
       this.pToastComponent.showErrorCustomMessage('Erro', 'Dados inválidos.');
